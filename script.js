@@ -1,36 +1,61 @@
-const words = [
-    "Computer Science Student",
-    "C Programmer",
-    "Java Learner",
-    "Web Developer"
+const text=[
+"Computer Science Student",
+"C Programmer",
+"Java Learner",
+"Web Developer"
 ];
 
-let word = 0;
-let letter = 0;
-let deleting = false;
-const typing = document.getElementById("typing");
+let i=0;
+let j=0;
+let current="";
+let isDeleting=false;
 
-function typeEffect() {
+function type(){
 
-    const current = words[word];
+current=text[i];
 
-    if (!deleting) {
-        typing.textContent = current.substring(0, letter++);
-        if (letter > current.length) {
-            deleting = true;
-            setTimeout(typeEffect, 1000);
-            return;
-        }
-    } else {
-        typing.textContent = current.substring(0, letter--);
-        if (letter < 0) {
-            deleting = false;
-            word = (word + 1) % words.length;
-            letter = 0;
-        }
-    }
+if(isDeleting){
 
-    setTimeout(typeEffect, deleting ? 60 : 120);
+document.getElementById("typing").innerHTML=current.substring(0,j--);
+
+if(j<0){
+
+isDeleting=false;
+
+i++;
+
+if(i==text.length){
+
+i=0;
+
 }
 
-typeEffect();
+}
+
+}
+
+else{
+
+document.getElementById("typing").innerHTML=current.substring(0,j++);
+
+if(j>current.length){
+
+isDeleting=true;
+
+}
+
+}
+
+setTimeout(type,120);
+
+}
+
+type();
+
+const btn=document.getElementById("mode");
+
+btn.onclick=()=>{
+
+document.body.classList.toggle("light");
+
+}
